@@ -135,7 +135,7 @@ const prepareUrl = (uiParams) => {
     let now = uiParams.endDate;
     let suffix = '?adjusted=true&sort=asc&limit=262&';
     
-    const apiKey = process.env.polygonAPIkey;
+    const apiKey = process.env.POLYGON_API_KEY;
     //let url = prefix + stock + extra + howfarback + '/' + now + suffix + APIKEYS.POLYGON;
     let url = prefix + stock + extra + howfarback + '/' + now + suffix + apiKey;
     return url;
