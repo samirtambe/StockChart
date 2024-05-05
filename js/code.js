@@ -99,6 +99,33 @@ const clearStockChartArea = () => {
     }
 }
 
+const saveTickerToDB = (tickerToSave) => {
+    let myHeaders = new Headers();
+            
+    // add content type header to object
+    myHeaders.append("Content-Type", "application/json");
+
+    // Turn object to string and store in a variable
+    let packagedInput = JSON.stringify({"stocksymbol" : tickerToSave});
+
+    console.log("packagedInput = " + packagedInput);
+
+    // create a JSON object w/ parameters for API call & store in variable
+    let requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: packagedInput,
+        redirect: 'follow'
+    };
+
+    // make API call with parameters and use promises to get response
+    fetch("https://64ttn7xff6.execute-api.us-east-1.amazonaws.com/test1", requestOptions)
+    .then(response => response.text())
+    .then(result => console.log("Saved Ticker Symbol " + tickerToSave + " to DB."))
+    .catch(error => console.log('Error saving ticker symbol ' + tickerToSave, error));
+
+};
+
 const prepareUrl = (uiParams) => {
 
     let prefix = 'https://api.polygon.io/v2/aggs/ticker/';
@@ -112,19 +139,18 @@ const prepareUrl = (uiParams) => {
     return url;
 };
 
-const performQuery = (url) => {
+const performQuery = (tickr, url) => {
 
     let numOfDataPoints = undefined;
 
     fetch(url).then((response) => {
 
-        if (!response.ok) {
-            throw new Error(`HTTP ERROR: ${response.status}`);
-        }
-        else {
-            console.log(`HTTP STATUS: ${response.status}`);
-        }
+        if (!response.ok) {throw new Error(`HTTP ERROR: ${response.status}`);}
+
+        else {console.log(`HTTP STATUS: ${response.status}`);}
+
         return response.json();
+
         })
         .then((data) => {
 
@@ -143,6 +169,8 @@ const performQuery = (url) => {
 
                 drawGraph(tickerData);
 
+                saveTickerToDB(tickr);
+
                 listenForScreenResize();
 
               } else {
@@ -151,12 +179,14 @@ const performQuery = (url) => {
                 let v = document.getElementById('errorPanel');
                 v.textContent = 'Invalid ticker symbol.';
                 v.className = 'visible';
-                tickerData=undefined;
+                tickerData = undefined;
+
             }
         })
         .catch((error) => {
             console.log('performQuery() Catch: ' + error);
         });
+
 };
 
 const padWithZero = (chk) => {
@@ -331,32 +361,31 @@ const init = () => {
     url = prepareUrl(reqParams);
 
     // get data from polygon.io and draw graph
-    performQuery(url);
-
-
-// ---------  save user inputted stock symbols to dynamodb
+    performQuery(reqParams.symbol, url);
+/*
+    // Save user inputted stock symbols to dynamodb
     let myHeaders = new Headers();
-        
+            
     // add content type header to object
     myHeaders.append("Content-Type", "application/json");
-    
-    // using built in JSON utility package turn object to string and store in a variable
+
+    // Turn object to string and store in a variable
     let packagedInput = JSON.stringify({"stocksymbol" : uisymbol});
-    
+
     console.log("packagedInput = " + packagedInput);
-    
-    // create a JSON object with parameters for API call and store in a variable
+
+    // create a JSON object w/ parameters for API call & store in variable
     let requestOptions = {
         method: 'POST',
         headers: myHeaders,
         body: packagedInput,
         redirect: 'follow'
     };
-    
+
     // make API call with parameters and use promises to get response
     fetch("https://64ttn7xff6.execute-api.us-east-1.amazonaws.com/test1", requestOptions)
     .then(response => response.text())
     .then(result => console.log("sent"))
     .catch(error => console.log('error', error));
-
+*/
 };
