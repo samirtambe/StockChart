@@ -134,8 +134,6 @@ const prepareUrl = (uiParams) => {
     let howfarback = uiParams.startDate;
     let now = uiParams.endDate;
     let suffix = '?adjusted=true&sort=asc&limit=262&';
-    
-    
     let url = prefix + stock + extra + howfarback + '/' + now + suffix + APIKEYS.POLYGON;
     
     return url;
