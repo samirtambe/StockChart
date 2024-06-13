@@ -7,7 +7,7 @@ Stock queries are stored in a NoSQL database (DynamoDB) in the cloud. The most q
 
 ## Cloud-based Stock Chart Display
 
-Upon receiving the data, the web app produced a line graph of the history using [D3.js](https://d3js.org/).  D3.js uses SVG (Scalable Vector Graphics). If viewing this app on a desktop or laptop, you can resize the screen and the graph will redraw itself without resubmitting the query.
+After receiving the data, it draws a line graph of the history using [D3.js](https://d3js.org/).  D3.js uses SVG (Scalable Vector Graphics). If viewing this app on a desktop or laptop, you can resize the screen and the graph will redraw itself without resubmitting the query.
 
 This web application also records the stock symbols entered by users in a AWS DynamoDB NO-SQL database via a Lambda function through an API.  When the web application is first loaded in the browser it will list the three most popular stocks that have been entered in to the app from an AWS DynamoDB NO-SQL database via a Lambda function through an API.
 
