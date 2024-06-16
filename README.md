@@ -5,6 +5,8 @@ This project is a web application that displays stock charts for a specified tim
 
 Stock queries are stored in a NoSQL database (DynamoDB) in the cloud. The most queried stocks are also displayed in the web app by querying the DynamoDB database.  Both of these functions are done using an AWS API that allows us to run Lambda functions to perform the respective queries.
 
+![alt text](./doc/site-screenshot.jpg)
+
 ## Cloud-based Stock Chart Display
 
 After receiving the data, it draws a line graph of the history using [D3.js](https://d3js.org/).  D3.js uses SVG (Scalable Vector Graphics). If viewing this app on a desktop or laptop, you can resize the screen and the graph will redraw itself without resubmitting the query.
