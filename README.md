@@ -1,25 +1,16 @@
 # StockChart-Cloud
 ## Introduction
 
-This project is a web application that displays stock charts for a specified timeframe from a user inputted stock symbol. The user inputted stock symbol is sent to [Polygon.io API](https://www.polygon.io/) API. The API returns the stock symbol's historic data according to the time frame specified: 1 week, 1 month, 3 months, 6 months and 1 year. The received data is in JSON Format.
+This project is a web application that displays stock charts for a specified timeframe from a user inputted stock symbol. The user inputted stock symbol is sent to [Polygon.io](https://www.polygon.io/) API. The API returns the stock symbol's historic data according to the time frame specified.
 
-Stock queries are stored in a NoSQL database (DynamoDB) in the cloud. The most queried stocks are also displayed in the web app by querying the DynamoDB database.  Both of these functions are done using an AWS API that allows us to run Lambda functions to perform the respective queries.
+Stock queries are stored in a NoSQL database (DynamoDB) in the AWS cloud each time a user enters a valid stock symbol. The top 3 queried stocks are also displayed.  Upon page load, the web app queries the DynamoDB database. 
+
+The web app draws a line graph of the stock symbol price history using [D3.js](https://d3js.org/).  If viewing this app on a desktop or laptop, you can resize the screen and the graph will redraw itself without resubmitting the query.
+
+THE GOAL OF THIS README IS TO SHOW YOU HOW TO SET UP THE AWS CLOUD RESOURCES TO SAVE USER-INPUTTED STOCK SYMBOLS TO A DYNAMODB 
+DATABASE AND TO QUERY THE DYNAMODB DATABASE TO SHOW THE TOP 3 POPULAR STOCKS.
 
 ![alt text](./doc/site-screenshot.jpg)
-
-## Cloud-based Stock Chart Display
-
-After receiving the data, it draws a line graph of the history using [D3.js](https://d3js.org/).  D3.js uses SVG (Scalable Vector Graphics). If viewing this app on a desktop or laptop, you can resize the screen and the graph will redraw itself without resubmitting the query.
-
-This web application also records the stock symbols entered by users in a AWS DynamoDB NO-SQL database via a Lambda function through an API.  When the web application is first loaded in the browser it will list the three most popular stocks that have been entered in to the app from an AWS DynamoDB NO-SQL database via a Lambda function through an API.
-
-# Set up (focus on Cloud Side - AWS)
-
-THE HTML/JavaScript/CSS IS NOT THE FOCUS OF THIS GUIDE.
-
-The goal of this Readme is to guide you through setting up the AWS cloud resources for saving user inputted stock symbols from the web application to an AWS DynamoDB database and to be able to query that DynamoDB database to determine popular stocks and display them on the webpage when the webpage loads.
-
-![alt text](./doc/cloud-setup.png)
 
 
 ## Overview of Steps
@@ -30,8 +21,12 @@ The goal of this Readme is to guide you through setting up the AWS cloud resourc
 5. CREATE LAMBDA FUNCTION to retrieve most popular user-inputted stock symbols from the NoSQL database
 6. GRANT LAMBDA FUNCTION permission to read from NoSQL database using IAM
 7. INVOKE LAMBDA FUNCTION by creating another API using API Gateway that calls the Lambda function
-8. CREATE APP USING AWS AMPLIFY to launch the whole web application
+8. INSERT AWS API Calls in your JavaScript
+9. CREATE APP USING AWS AMPLIFY to launch the whole web application
 
+
+
+![alt text](./doc/cloud-setup.png)
 
 
 ## Create Lambda Function to save user-inputted stock symbol to cloud NoSQL database
@@ -260,8 +255,11 @@ def lambda_handler(event, context):
 ```
 
 3. Grant permission for the lambda function to read from the database
-4. Create another API using API Gateway that calls the Lambda function
-5. Insert the API Gateway Endpoint in to your JavaScript code for saving an entered stock symbol to the DynamoDB database
+4. Create another API using API Gateway that invokes the Lambda function
+
+## Insert AWS API Calls in your JavaScript
+
+1. Insert the API Gateway Endpoint in to your JavaScript code for saving an entered stock symbol to the DynamoDB database
 ```JavaScript
 const saveTickerToDB = (tickerToSave) => {
     let myHeaders = new Headers();
@@ -275,7 +273,7 @@ const saveTickerToDB = (tickerToSave) => {
 };
 ```
 
-6. Insert the API Gateway Endpoint in to your JavaScript code for getting the most popular stock symbols
+2. Insert the API Gateway Endpoint in to your JavaScript code for getting the most popular stock symbols
 ```JavaScript
 //retrieve data from AWS getPopularQuotes API to retreive the 3 most 
 //popular stock quotes with the number of times they have been queried
