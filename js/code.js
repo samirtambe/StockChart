@@ -1,35 +1,47 @@
-//retrieve data from AWS getPopularQuotes API to retreive the 3 most 
+//retrieve data from AWS getPopularQuotes API to retreive the 5 most 
 //popular stock quotes with the number of times they have been queried
 const recvPopularQuotes = (data) => {
-    console.log("most popular stocks...");
+
+    //console.log("most popular stocks...");
+
     obj = JSON.parse(data.body);
     
-    // This array will contain the 3 popular stocks
+    // This POPULAR STOCK QUOTES array will contain the 5 popular stocks
     let popArray = [];
 
     let displayStr = "";
-    // the object "obj" is an array of arrays
+    // the object "obj" is an array of arrays 
     // [
-    //   ['stocksymbol, 'cvx'],    <--- ROW 0
+    //   ['stocksymbol, 'CVX'],    <--- ROW 0
     //   ['count', '8'],           <--- ROW 1
-    //   ['stocksymbol, 'aapl'],   <--- ROW 2
+    //   ['stocksymbol, 'AAPL'],   <--- ROW 2
     //   ['count', '7'],           <--- ROW 3
-    //   ['stocksymbol, 'tsla'],   <--- ROW 4
+    //   ['stocksymbol, 'TSLA'],   <--- ROW 4
     //   ['count', '5']            <--- ROW 5
+    //   ['stocksymbol, 'MSFT'],   <--- ROW 6
+    //   ['count', '4']            <--- ROW 7
+    //   ['stocksymbol, 'NVDA'],   <--- ROW 8
+    //   ['count', '3']            <--- ROW 9
     // ]
-    for (let row = 0; row < 6; row++) {
 
-         // only rows 0, 2, and 4
+    // FILTERING out the odd number rows and first (0th)
+    // element of the relevant 'stocksymbol' row
+    // and adding that to the 
+    for (let row = 0; row < 10; row++) {
+
+         // only rows 0, 2, 4, 6 and 8
         if (row % 2 == 0) {
             // ADD 2nd element ie... [row][1] array
             popArray.push(obj[row][1])
         }
     }
-    // popular the corresponding span TAG
+    // populate the corresponding span TAG with the data from the appropriate 
+    // element of the array
     document.getElementById('popstocks0').innerHTML = popArray[0];
     document.getElementById('popstocks1').innerHTML = popArray[1];
     document.getElementById('popstocks2').innerHTML = popArray[2];
-
+    document.getElementById('popstocks3').innerHTML = popArray[3];
+    document.getElementById('popstocks4').innerHTML = popArray[4];
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -88,6 +100,8 @@ const listenForScreenResize = () => {
     });
 }
 
+// this function removes the DOM element for the stockchart in case a new
+// chart needs to be drawn 
 const clearStockChartArea = () => {
     let parentDiv = document.getElementById('stockChartDiv');
     try {
@@ -99,6 +113,11 @@ const clearStockChartArea = () => {
     }
 }
 
+
+// this function saves the stock symbol in the AWS cloud 
+// by calling an AWS API (POST REQUEST) and sending the user inputted
+// stock symbol to the AWS API that invokes a lambda function that 
+// either increments or inserts the stock symbol to the DynamoDB table
 const saveTickerToDB = (tickerToSave) => {
     let myHeaders = new Headers();
             
