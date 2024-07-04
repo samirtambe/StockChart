@@ -258,10 +258,10 @@ def getTopEntries():
         ProjectionExpression = "#cnt, stocksymbol",
         ExpressionAttributeNames = {'#cnt': 'count'})
     sorted_items = sorted(response['Items'], key=lambda x: x['count'], reverse=True)
-    top_three = sorted_items[:3]
-    for item in top_three:
+    top_five = sorted_items[:5]
+    for item in top_five:
         print(item)
-    return top_three
+    return top_five
 
 def lambda_handler(event, context):
     tqList = getTopEntries() # a list of dictionaries was returned
