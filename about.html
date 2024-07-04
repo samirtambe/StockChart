@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>UbestInvest - About</title>
+    <title>StockChart - About</title>
 
 <!-- Bootstrap CSS -->
     <link rel="stylesheet" href ="css/bootstrap.min.css" />
@@ -33,7 +33,7 @@
     <div id="outermenubar" class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
-                <a href="index.html" class="navbar-brand">uBest Invest</a>
+                <a href="index.html" class="navbar-brand">StockChart</a>
                 <button type="button" class="navbar-toggle"
                         data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle Menu</span>
@@ -44,7 +44,16 @@
             </div>
             <ul class="nav navbar-nav navbar-right collapse navbar-collapse">
                 <li>
-                    <a href="about.html"><i class="bi bi-info-square"></i>About</a>
+                    <a href="about.html"><i class="bi bi-info-circle"></i>About</a>
+                </li>
+                <li>
+                    <a href="https://samircloud.com" target="_blank"><i class="bi bi-list-columns-reverse"></i>Resume</a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/samirtambe/" target="_blank"><i class="bi bi-linkedin"></i>LinkedIn</a>
+                </li>
+                <li>
+                    <a href="https://www.github.com/samirtambe" target="_blank"><i class="bi bi-github"></i>GitHub</a>
                 </li>
             </ul>
         </div>
@@ -57,17 +66,57 @@
             <div autoscroll="false">
                 <div class="col-xs-12">
                     <h4>About</h4>
-                    <p>This site retrieves closing stock price data from Polygon.io. The user inputs a stock symbol and 
-                        specifies the time frame ranging one week to six months.  After the data is retreived it is 
-                        plotted on a line graph using D3.js charts.  All of this is developed using Vanilla JavaScript!
+                    <p>                
+StockChart is a web application that takes a stock symbol and a 
+time frame as user input to send to 
+<a href = "https://www.polygon.io/" target="_blank">Polygon.io</a>. 
+This third party API, 
+<a href = "https://www.polygon.io/" target="_blank">Polygon.io</a>, 
+returns stock prices for each trading day in the time frame.
+                    </p>
+                    <p>
+StockChart receives the data 
+from <a href = "https://www.polygon.io/" target="_blank">Polygon.io</a> 
+consisting of dates and stock prices for that stock symbol. StockChart 
+draws the line graph plotting the stock price for the time frame.
+                    </p>
+                    <p>
+This web application consists of Vanilla JavaScript.  The stock chart is 
+created using <a href="https://d3js.org/" target="_blank">D3.js</a>. 
+<i>If 
+the window size of the browser changes the graph will redraw itself 
+without resubmitting the query.</i>
+                    </p>
+                    <p>
+Behind the scenes, the stock symbols inputted by the user are saved to the 
+cloud.  When the website loads it gets the most popular stocks that previous 
+users have entered on the site and displays those symbols.
+                    </p>
+                    <p>
+User-inputted stock symbols that successfully come back with data from the 
+third party <a href = "https://www.polygon.io/" target="_blank">Polygon.io</a>
+ API are then sent to my AWS API. That API sends the data to my Lambda 
+ function that sends the stock symbol my DynamoDB table in AWS.  If the 
+ symbol exists it is incremented, else it is added.
+                    </p>
+                    <p>
+As mentioned previously, when the page loads a POST request is sent to another
+AWS API that I created. That API calls my other Lambda function that 
+queries the DynamoDB table and gets the most popular stock symbols 
+that have been stored.
+
+                    </p>
+                    <p class="well">
+Refer to the documentation for how to set up the AWS cloud resources in the  
+<a href = "https://github.com/samirtambe/stockchart-cloud/blob/main/README.md" target="_blank">readme.md</a>.
                     </p>
                 
-                    <h4 class="pgraphgaptop">Technology Stack</h4>
+                    <h4 class="pgraphgaptop">Technologies</h4>
                 
                     <div>
                         <table class="table table-striped">
                             <tr>
-                                <td><a href="http://getbootstrap.com/" target="_blank">Bootstrap v3.3.2</a></td>
+                                <td><a href="http://getbootstrap.com/" target="_blank">Bootstrap</a></td>
                                 <td>Used for styling, formatting, and responsiveness.</td>
                             </tr>
                             <tr>
@@ -83,13 +132,13 @@
                             </tr>
                             <tr>
                                 <td><a href="https://www.polygon.io" target="_blank">Polygon.io</a></td>
-                                <td>The site that provided the data used to create the graph.
+                                <td>The third party API that provides the data for the user-inputted stock symbol.
                                 </td>
                             </tr>
                             <tr>
                                 <td><a href="https://aws.amazon.com/" target="_blank">Amazon Web Services</a></td>
-                                <td>This web service allows us to stock symbols in a cloud NoSQL database and show which 
-                                    stock symbols are most popular when a user opens the site.
+                                <td>AWS Amplify, API Gateway, AWS Certificate Manager (ACM), CloudFront, DynamoDB, 
+                                    Lambda, Route53 and S3.
                                 </td>
                             </tr>
 
@@ -116,7 +165,7 @@
             </div>
             <div class='row'>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p class="text-center"> &copy; Tambe Tech 2023</p>
+                    <p class="text-center"> &copy; Samircloud 2024</p>
                 </div>
             </div>
         </div>
