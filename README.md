@@ -1,14 +1,41 @@
-# StockChart-Cloud
+# StockChart
 ## Introduction
 
-This project is a web application that displays stock charts for a specified timeframe from a user inputted stock symbol. The user inputted stock symbol is sent to [Polygon.io](https://www.polygon.io/) API. The API returns the stock symbol's historic data according to the time frame specified.
+StockChart is a web application that takes a stock symbol and a 
+time frame as user input to send to [Polygon.io](https://www.polygon.io/). 
+This third party API, [Polygon.io](https://www.polygon.io/), returns stock 
+prices for each trading day in the time frame.
 
-Stock queries are stored in a NoSQL database (DynamoDB) in the AWS cloud each time a user enters a valid stock symbol. The top 3 queried stocks are also displayed.  Upon page load, the web app queries the DynamoDB database. 
+StockChart receives the data 
+from [Polygon.io](https://www.polygon.io/) consisting of dates and stock 
+prices for that stock symbol. StockChart draws the line graph plotting 
+the stock price for the time frame.
 
-The web app draws a line graph of the stock symbol price history using [D3.js](https://d3js.org/).  If viewing this app on a desktop or laptop, you can resize the screen and the graph will redraw itself without resubmitting the query.
+This web application consists of Vanilla JavaScript.  The stock chart is 
+created using [D3.js](https://d3js.org/). If the window size of the browser 
+changes the graph will redraw itself without resubmitting the query.
 
-THE GOAL OF THIS README IS TO SHOW YOU HOW TO SET UP THE AWS CLOUD RESOURCES TO SAVE USER-INPUTTED STOCK SYMBOLS TO A DYNAMODB 
-DATABASE AND TO QUERY THE DYNAMODB DATABASE TO SHOW THE TOP 3 POPULAR STOCKS.
+Behind the scenes, the stock symbols inputted by the user are saved to the 
+cloud.  When the website loads it gets the most popular stocks that previous 
+users have entered on the site and displays those symbols.
+
+### Cloud Connection
+
+User-inputted stock symbols that successfully come back with data from the 
+third party [Polygon.io](https://www.polygon.io/) API are then sent to my 
+AWS API. That API sends the data to my Lambda function that sends the 
+stock symbol my DynamoDB table in AWS.  If the symbol exists it is 
+incremented, else it is added.
+
+As mentioned previously, when the page loads a POST request is sent to another
+AWS API that I created. That API calls my other Lambda function that 
+queries the DynamoDB table and gets the most popular stock symbols 
+that have been stored.
+
+### Important Note
+*THE GOAL OF THIS README IS TO SHOW YOU HOW TO SET UP THE AWS CLOUD RESOURCES TO SAVE USER-INPUTTED STOCK SYMBOLS TO A DYNAMODB 
+DATABASE AND TO QUERY THE DYNAMODB DATABASE TO SHOW THE MOST POPULAR STOCKS.*
+
 
 ![alt text](./doc/site-screenshot.jpg)
 
@@ -23,6 +50,12 @@ DATABASE AND TO QUERY THE DYNAMODB DATABASE TO SHOW THE TOP 3 POPULAR STOCKS.
 7. INVOKE LAMBDA FUNCTION by creating another API using API Gateway that calls the Lambda function
 8. INSERT AWS API Calls in your JavaScript
 9. CREATE APP USING AWS AMPLIFY to launch the whole web application
+
+### Coming Soon...
+
+10. REQUEST Certificates from AWS Certificate Manager (ACM)
+11. PROVISION Cloudfront service such that it use the certificates
+12. A appropriate CNAME and A records to Route53
 
 
 
