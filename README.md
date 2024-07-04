@@ -55,7 +55,7 @@ DATABASE AND TO QUERY THE DYNAMODB DATABASE TO SHOW THE MOST POPULAR STOCKS.*
 
 10. REQUEST Certificates from AWS Certificate Manager (ACM)
 11. PROVISION Cloudfront service such that it use the certificates
-12. A appropriate CNAME and A records to Route53
+12. CREATE corresponding CNAME and A records to Route53
 
 
 
