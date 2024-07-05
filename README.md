@@ -308,7 +308,7 @@ const saveTickerToDB = (tickerToSave) => {
 
 2. Insert the API Gateway Endpoint in to your JavaScript code for getting the most popular stock symbols
 ```JavaScript
-//retrieve data from AWS getPopularQuotes API to retreive the 3 most 
+//retrieve data from AWS getPopularQuotes API to retreive the five most 
 //popular stock quotes with the number of times they have been queried
 const recvPopularQuotes = (data) => {
     console.log("most popular stocks...");
