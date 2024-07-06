@@ -245,7 +245,7 @@ if the symbol has been entered for the first time the count will be one.
 
 ## Retrieve the most popular user-inputted stock symbols
 1. Create Lambda function as described earlier
-2. Paste this code to retreive the 5 most popular stocks fomr the DynamoDB table
+2. Paste this code to retreive the 5 most popular stocks from the DynamoDB table
 
 ```Python
 import json
