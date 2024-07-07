@@ -37,7 +37,7 @@ that have been stored.
 DATABASE AND TO QUERY THE DYNAMODB DATABASE TO SHOW THE MOST POPULAR STOCKS.*
 
 
-![alt text](./doc/site-screenshot.jpg)
+![alt text](./doc/siteimage0.jpg)
 
 
 ## Overview of Steps
