@@ -1,4 +1,9 @@
 # StockChart
+## Important Note
+The objective of this Readme is **TO SHOW YOU HOW TO SET UP THE AWS CLOUD 
+RESOURCES** to save user-inputted stock symbols to the cloud and then 
+retrieve the most popular stock symbols to display them.
+
 ## Introduction
 
 StockChart is a web application that takes a stock symbol and a 
@@ -31,11 +36,6 @@ As mentioned previously, when the page loads a POST request is sent to another
 AWS API that I created. That API calls my other Lambda function that 
 queries the DynamoDB table and gets the most popular stock symbols 
 that have been stored.
-
-### Important Note
-*THE GOAL OF THIS README IS TO SHOW YOU HOW TO SET UP THE AWS CLOUD RESOURCES TO SAVE USER-INPUTTED STOCK SYMBOLS TO A DYNAMODB 
-DATABASE AND TO QUERY THE DYNAMODB DATABASE TO SHOW THE MOST POPULAR STOCKS.*
-
 
 ![alt text](./doc/siteimage0.jpg)
 
