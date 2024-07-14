@@ -49,13 +49,12 @@ DATABASE AND TO QUERY THE DYNAMODB DATABASE TO SHOW THE MOST POPULAR STOCKS.*
 6. GRANT LAMBDA FUNCTION permission to read from NoSQL database using IAM
 7. INVOKE LAMBDA FUNCTION by creating another API using API Gateway that calls the Lambda function
 8. INSERT AWS API Calls in your JavaScript
-9. CREATE APP USING AWS AMPLIFY to launch the whole web application
 
 ### Coming Soon...
 
-10. REQUEST Certificates from AWS Certificate Manager (ACM)
-11. PROVISION Cloudfront service such that it use the certificates
-12. CREATE corresponding CNAME and A records to Route53
+9. REQUEST Certificates from AWS Certificate Manager (ACM)
+10. PROVISION Cloudfront service such that it use the certificates
+11. CREATE corresponding CNAME and A records to Route53
 
 
 
